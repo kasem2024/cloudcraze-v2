@@ -67,27 +67,27 @@ const Weather = () => {
       {/* FIRST LAYER  */}
       <div className={` overflow-hidden w-[100vw]  ${bgData[counter]} width-full h-[100vh] bg-cover flex justify-center items-start`}>
             {/* NAVBAR  */}
-            <nav className=' flex justify-center items-center w-full absolute top-0 left-0 px-10 2xl:pl-10 2xl:pr-20  py-5   text-white z-30'>
-                <div className='text-3xl font-extrabold absolute top-[30px] left-[30px]'><span className='text-5xl text-cyan-600'>C</span>loud </div>
+            <nav className=' flex justify-center items-center w-full absolute top-0 left-0 px-5 2xl:pl-7 2xl:pr-10  py-3   text-white z-30'>
+                <div className='text-3xl font-extrabold absolute top-[20px] left-[20px]'><span className='text-4xl text-cyan-600'>C</span>loud </div>
 
-                <div className=' border-4 border-white w-[60%] p-2 text-black text-2xl'>
+                <div className='z-50 border-2 border-white w-[60%] p-1 text-black text-xl'>
                 <Search onSearchChange={handleOnSearchChange}/>
                 </div>
 
-                <div className='flex space-x-3 items-center justify-center  absolute top-[10px] right-[30px]'>
+                <div className='flex space-x-3 items-center justify-center  absolute top-[10px] right-[20px]'>
                   <User data={data}/>
-                  <Link href={'/api/auth/signout'} className='text-zinc-100 text-5xl bg-black rounded-full p-5 border-4'><LogOut/> </Link>
+                  <Link href={'/api/auth/signout'} className='text-zinc-100 text-5xl bg-black rounded-full p-3 border-2'><LogOut/> </Link>
                 </div>
             </nav>
             {/* WEATHER  */}
-            <div className='pt-28 rounded-md text-2xl bg-black/30 w-[100vw]   2xl:w-[70vw] h-screen shadow-lg text-cyan-600 flex justify-center items-start z-20'>
+            <div className='pt-24 rounded-md text-2xl bg-black/30 w-[100vw]   2xl:w-[70vw] h-screen shadow-lg text-cyan-600 flex justify-center items-start z-20'>
                 <div className='w-[80%] '> 
                     {currentWeather && <CurrentWeather currentWeather={currentWeather} />}
                     {forecast && <Forecast data={forecast} />}
                 </div>
             </div>
 
-        { !forecast && <div className='flex absolute  bottom-0 left-0 w-full h-[50vh] z-50'> <GlobeDemo/> </div>}
+            { !forecast && <div className='md:flex absolute bottom-[300px] left-[50%] translate-x-[-50%] w-[700px] h-[20vh] hidden  '> <GlobeDemo/> </div>}
         
       </div>
       {/* SECOND LAYER  */}

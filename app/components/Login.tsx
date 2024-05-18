@@ -5,7 +5,7 @@ import React from 'react'
 import Link from 'next/link';
 const Login = () => {
   return (
-   <div className='bg-white flex justify-center items-center p-10 space-x-10 z-50   w-full '>
+   <div className='bg-white flex justify-center items-center pb-32 space-x-10 z-50   w-full '>
     <div className='flex flex-col items-center justify-center space-y-16'>
     <ReactTyped
                   strings={[

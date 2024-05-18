@@ -9,7 +9,7 @@ const User = ({data}:any) => {
 
 const randomColor = ['bg-green-600' , 'bg-rose-500' , 'bg-violet-500' , 'bg-orange-600' ,'bg-cyan-600' ,'bg-blue-600']
   return (
-    <div className={`text-xl border-4 cyan-600 rounded-full ${randomColor[RandomNumber]} p-5`}>{shortName}</div>
+    <div className={`text-xl border-2 cyan-600 rounded-full ${randomColor[RandomNumber]} p-3`}>{shortName}</div>
   )
 }
 

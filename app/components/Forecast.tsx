@@ -16,9 +16,9 @@ const Forecast = ({ data }:any) => {
           <AccordionItem key={index}>
             <AccordionItemHeading>
               <AccordionItemButton>
-                <div className='flex justify-between items-center bg-zinc-900 px-20 mt-3 rounded-md space-x-4 '>
+                <div className='flex justify-between items-center bg-zinc-900 px-14 mt-2 rounded-md space-x-2 '>
                  <motion.div whileHover={{rotateX:29}} className='bg-white  rounded-full'> 
-                 <Image width={80} height={80} className='text-cyan-600 w-[80px] h-[80px]' src={`/icons/${item?.weather[0]?.icon}.png`} alt="img" /></motion.div>
+                 <Image width={80} height={80} className='text-cyan-600 w-[60px] h-[60px]' src={`/icons/${item?.weather[0]?.icon}.png`} alt="img" /></motion.div>
                   <label className='text-cyan-600 text-4xl'>{newDays[index]}</label>
                   <label className='lg:text-4xl'>{item?.weather[0]?.description}</label>
                   <label className='text-zinc-500 text-4xl'>
