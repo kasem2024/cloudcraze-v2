@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: black
+  
+}
+
+/* @layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+} */
+::selection{
+  color: rgb(62, 159, 159);
+  background-color: black;
+  padding: 2px;
+}
+
+
+.daily-details-grid{
+  display: grid;
+
+  padding: 5px 15px;
+  flex: 1;
+  grid-template-columns: auto auto;
+  grid-row-gap: 0;
+  grid-column-gap: 15px;
+  column-gap: 15px;
+ 
+}
+.daily-details-grid-item{
+  padding: 20px;
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  align-items: center;
+} 
