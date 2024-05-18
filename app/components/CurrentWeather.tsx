@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {motion} from 'framer-motion'
+import Image from 'next/image';
 const CurrentWeather = ({currentWeather}:any) => {
     console.log(currentWeather)
   return (
@@ -11,7 +12,7 @@ const CurrentWeather = ({currentWeather}:any) => {
           <p className='text-5xl text-cyan-600 font-extrabold'>{currentWeather?.city}</p>
           <p className='text-2xl text-slate-400'>{currentWeather?.weather[0]?.description}</p>
         </div>
-        <motion.div whileHover={{rotateX:20}}><img  src={`icons/${currentWeather?.weather[0]?.icon}.png`} alt="" className='bg-white rounded-full p-4' /></motion.div>
+        <motion.div whileHover={{rotateX:20}}><Image width={100} height={100}  src={`/icons/${currentWeather?.weather[0]?.icon}.png`} alt="" className='bg-white rounded-full p-4' /></motion.div>
       </motion.div>
       <div className="flex justify-between items-center mt-7">
           <p className='text-6xl font-bold'>{Math.round(currentWeather.main.temp)}<span className='text-6xl text-cyan-600'>°C</span></p>

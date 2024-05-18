@@ -26,8 +26,10 @@ const  apiWeatherUrl = "https://api.openweathermap.org/data/2.5"
 
 const Weather = () => {
     const [currentWeather, setCurrentWeather] = useState(null)
+    const [counter , setCounter] = useState(0)
     const [forecast, setForecast] = useState(null)
-    const handleOnSearchChange = (searchData) => {
+    const {data} = useSession();
+    const handleOnSearchChange = (searchData :any) => {
         const [lat, lon] = searchData.value.split(' ')
         const currentWeatherFetch = fetch(
           `${apiWeatherUrl}/weather?lat=${lat}&lon=${lon}&appid=${API_Key}&units=metric`
@@ -45,9 +47,6 @@ const Weather = () => {
           .catch((err) => console.log(err))
       }
 
-    // const [bgvalue , setBgValue] = useState('bg-navbg1')
-    const [counter , setCounter] = useState(0)
-    console.log(counter)
     useEffect(()=>{
     const timeoutId = setTimeout(() => {
         if(counter < 8){
@@ -59,36 +58,39 @@ const Weather = () => {
     }, 11000);
     return ()=> clearTimeout(timeoutId)
     }, [counter])
-    useEffect(()=>{
 
-    }, [])
     console.log(currentWeather)
     console.log(forecast)
-    const {data} = useSession();
  
   return (
  <div>
+      {/* FIRST LAYER  */}
       <div className={` overflow-hidden w-[100vw]  ${bgData[counter]} width-full h-[100vh] bg-cover flex justify-center items-start`}>
-        <div className=' flex justify-center items-center w-full absolute top-0 left-0 px-10 2xl:pl-10 2xl:pr-20  py-5   text-white z-30'>
-            <div className='text-3xl font-extrabold absolute top-[30px] left-[30px]'><span className='text-5xl text-cyan-600'>C</span>loud </div>
-             <div className=' border-4 border-white w-[60%] p-2 text-black text-2xl'>
-             <Search onSearchChange={handleOnSearchChange}/>
-             </div>
-            <div className='flex space-x-3 items-center justify-center  absolute top-[10px] right-[30px]'>
-              <User data={data}/>
-              <Link href={'/api/auth/signout'} className='text-zinc-100 text-5xl bg-black rounded-full p-5 border-4'><LogOut/> </Link>
-            </div>
-           </div>
-   
-       <div className='pt-28 rounded-md text-2xl bg-black/30 w-[100vw]   2xl:w-[70vw] h-screen shadow-lg text-cyan-600 flex justify-center items-start z-20'>
+            {/* NAVBAR  */}
+            <nav className=' flex justify-center items-center w-full absolute top-0 left-0 px-10 2xl:pl-10 2xl:pr-20  py-5   text-white z-30'>
+                <div className='text-3xl font-extrabold absolute top-[30px] left-[30px]'><span className='text-5xl text-cyan-600'>C</span>loud </div>
 
-      <div className='w-[80%] '> {currentWeather && <CurrentWeather currentWeather={currentWeather} />}
-      {forecast && <Forecast data={forecast} />}</div>
-       </div>
-     { !forecast && <div className='flex absolute  bottom-0 left-0 w-full h-[50vh] z-50'>
-         <GlobeDemo/>
-      </div>}
+                <div className=' border-4 border-white w-[60%] p-2 text-black text-2xl'>
+                <Search onSearchChange={handleOnSearchChange}/>
+                </div>
+
+                <div className='flex space-x-3 items-center justify-center  absolute top-[10px] right-[30px]'>
+                  <User data={data}/>
+                  <Link href={'/api/auth/signout'} className='text-zinc-100 text-5xl bg-black rounded-full p-5 border-4'><LogOut/> </Link>
+                </div>
+            </nav>
+            {/* WEATHER  */}
+            <div className='pt-28 rounded-md text-2xl bg-black/30 w-[100vw]   2xl:w-[70vw] h-screen shadow-lg text-cyan-600 flex justify-center items-start z-20'>
+                <div className='w-[80%] '> 
+                    {currentWeather && <CurrentWeather currentWeather={currentWeather} />}
+                    {forecast && <Forecast data={forecast} />}
+                </div>
+            </div>
+
+        { !forecast && <div className='flex absolute  bottom-0 left-0 w-full h-[50vh] z-50'> <GlobeDemo/> </div>}
+        
       </div>
+      {/* SECOND LAYER  */}
       <div className='bg-black/10 w-full h-full absolute z-10 top-0 left-0 '>
       </div>
  </div>
