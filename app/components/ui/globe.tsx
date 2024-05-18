@@ -162,7 +162,9 @@ export function Globe({ globeConfig, data }: WorldProps) {
         });
       startAnimation();
     }
-  }, [globeData]);
+  }, [globeData  ]);
+    
+ 
 
   const startAnimation = () => {
     if (!globeRef.current || !globeData) return;

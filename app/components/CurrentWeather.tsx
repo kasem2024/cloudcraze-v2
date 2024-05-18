@@ -4,7 +4,7 @@ import React from 'react';
 import {motion} from 'framer-motion'
 import Image from 'next/image';
 const CurrentWeather = ({currentWeather}:any) => {
-    console.log(currentWeather)
+
   return (
     <div className='bg-black/70 text-white px-24 p-6 xl:text-4xl shadow-lg rounded-md'>
       <motion.div whileTap={{scale:1.1}} className="bg-zinc-900 p-4 px-10 flex justify-between items-center shadow-lg rounded-md">
