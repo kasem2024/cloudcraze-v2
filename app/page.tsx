@@ -3,7 +3,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import GameClickTop from "./components/GameClickTop";
 import Login from "./components/Login";
-import GameClickBottom from "./components/GameClickBottom";
+
 
 export default async function Home() {
   
@@ -16,7 +16,7 @@ export default async function Home() {
        <div>
         <Login/>
        </div>
-       <div className="w-full flex justify-center items-center "><GameClickBottom/></div>
+       <div className="w-full flex justify-center items-center bg-black h-[100px] "></div>
     </div>
    
   );
