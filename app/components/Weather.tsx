@@ -70,7 +70,7 @@ const Weather = () => {
             <nav className=' flex justify-center items-center w-full absolute top-0 left-0 px-5 2xl:pl-7 2xl:pr-10  py-3   text-white z-30'>
                 <div className='text-3xl font-extrabold absolute top-[20px] left-[20px]'><span className='text-4xl text-cyan-600'>C</span>loud </div>
 
-                <div className='z-50 border-2 border-white w-[60%] p-1 text-black text-xl'>
+                <div className='z-50 mt-[70px] border-2 border-white w-[95%] p-1 md:w-[60%] md:mt-1 text-black text-xl'>
                 <Search onSearchChange={handleOnSearchChange}/>
                 </div>
 
@@ -80,7 +80,7 @@ const Weather = () => {
                 </div>
             </nav>
             {/* WEATHER  */}
-            <div className='pt-24 rounded-md text-2xl bg-black/30 w-[100vw]   2xl:w-[70vw] h-screen shadow-lg text-cyan-600 flex justify-center items-start z-20'>
+            <div className=' pt-32 md:pt-24 rounded-md text-2xl bg-black/30 w-[100vw]   2xl:w-[70vw] h-screen shadow-lg text-cyan-600 flex justify-center items-start z-20'>
                 <div className='w-[80%] '> 
                     {currentWeather && <CurrentWeather currentWeather={currentWeather} />}
                     {forecast && <Forecast data={forecast} />}

@@ -16,12 +16,12 @@ const Forecast = ({ data }:any) => {
           <AccordionItem key={index}>
             <AccordionItemHeading>
               <AccordionItemButton>
-                <div className='flex justify-between items-center bg-zinc-900 px-14 mt-2 rounded-md space-x-2 '>
+                <div className='flex justify-between items-center bg-zinc-900 px-3 md:px-9 mt-1 md:mt-2 rounded-md space-x-1 md:space-x-2 '>
                  <motion.div whileHover={{rotateX:29}} className='bg-white  rounded-full'> 
-                 <Image width={80} height={80} className='text-cyan-600 w-[60px] h-[60px]' src={`/icons/${item?.weather[0]?.icon}.png`} alt="img" /></motion.div>
-                  <label className='text-cyan-600 text-4xl'>{newDays[index]}</label>
-                  <label className='lg:text-4xl'>{item?.weather[0]?.description}</label>
-                  <label className='text-zinc-500 text-4xl'>
+                 <Image width={80} height={80} className='text-cyan-600 w-[40px] h-[40px]' src={`/icons/${item?.weather[0]?.icon}.png`} alt="img" /></motion.div>
+                  <label className='text-cyan-600 text-sm md:text-lg'>{newDays[index]}</label>
+                  <label className='text-sm md:text-lg'>{item?.weather[0]?.description}</label>
+                  <label className='text-zinc-500 text-sm md:text-lg'>
                     {Math.round(item.main.temp_min)}°C /{" "}{Math.round(item.main.temp_max)}
                   </label>
                 </div>
@@ -30,28 +30,28 @@ const Forecast = ({ data }:any) => {
             <AccordionItemPanel>
               <div className='daily-details-grid '>
                 <div className="daily-details-grid-item bg-black mb-1 ">
-                  <label className='text-white'>Pressure</label>
-                   <label>{item.main.pressure}</label>
+                  <label className='text-white text-sm md:text-lg'>Pressure</label>
+                   <label className='text-sm md:text-lg'>{item.main.pressure}</label>
                 </div>
-                <div className="daily-details-grid-item bg-black mb-1 ">
-                  <label className='text-xl text-white'>Humidity</label>
-                   <label>{item.main.humidity}</label>
+                <div className="daily-details-grid-item bg-black mb-1  ">
+                  <label className='text-sm md:text-lg text-white'>Humidity</label>
+                   <label className='text-sm md:text-lg'>{item.main.humidity}</label>
                 </div>
                 <div className="daily-details-grid-item bg-black mb-1">
-                  <label className='text-white'>Clouds</label>
-                   <label>{item.clouds.all}</label>
+                  <label className='text-white text-sm md:text-lg'>Clouds</label>
+                   <label className='text-sm md:text-lg'>{item.clouds.all}</label>
                 </div>
                  <div className="daily-details-grid-item bg-black mb-1">
-                  <label className='text-white'>Wind speed:</label>
-                   <label>{item.wind.speed} m/s</label>
+                  <label className='text-white text-sm md:text-lg'>Wind speed:</label>
+                   <label className='text-sm md:text-lg'>{item.wind.speed} m/s</label>
                 </div>
                 <div className="daily-details-grid-item bg-black">
-                  <label className='text-white'>Sea Level</label>
-                   <label>{item.main.sea_level} m</label>
+                  <label className='text-white text-sm md:text-lg'>Sea Level</label>
+                   <label className='text-sm md:text-lg'>{item.main.sea_level} m</label>
                 </div>
                 <div className="daily-details-grid-item bg-black">
-                  <label className='text-white'>Feels Like</label>
-                   <label>{Math.round(item.main.feels_like)}°C</label>
+                  <label className='text-white text-sm md:text-lg'>Feels Like</label>
+                   <label className='text-sm md:text-lg '>{Math.round(item.main.feels_like)}°C</label>
                 </div>
               </div>
             </AccordionItemPanel>
