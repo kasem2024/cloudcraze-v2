@@ -75,7 +75,7 @@ const Weather = () => {
                 </div>
 
                 <div className='flex space-x-3 items-center justify-center  absolute top-[10px] right-[20px]'>
-                  <User data={data}/>
+                 <User data={data}/>
                   <Link href={'/api/auth/signout'} className='text-zinc-100 text-5xl bg-black rounded-full p-3 border-2'><LogOut/> </Link>
                 </div>
             </nav>
