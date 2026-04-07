@@ -34,11 +34,7 @@ const Login = () => {
       "
       >
         <ReactTyped
-          strings={[
-            "Welcome to Cloud Craze ☁️",
-            "Continue with Google 🚀",
-            "Let’s build something amazing ✨",
-          ]}
+          strings={["Welcome to CloudCraze ☁️", "Continue with Google ✨"]}
           typeSpeed={50}
           backSpeed={30}
           loop
@@ -53,8 +49,9 @@ const Login = () => {
         />
 
         <p className="text-zinc-400 text-center lg:text-left text-sm sm:text-base max-w-md">
-          A modern cloud platform to build, scale, and innovate faster than
-          ever.
+          A clean, modern weather platform that provides real-time weather
+          updates and accurate forecasts, helping users stay informed with
+          current conditions, temperature trends, and upcoming weather changes.
         </p>
 
         <motion.div
