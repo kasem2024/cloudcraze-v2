@@ -17,8 +17,7 @@
 }
 
 body {
-  color: black
-  
+  color: black;
 }
 
 /* @layer utilities {
@@ -26,14 +25,13 @@ body {
     text-wrap: balance;
   }
 } */
-::selection{
+::selection {
   color: rgb(62, 159, 159);
   background-color: black;
   padding: 2px;
 }
 
-
-.daily-details-grid{
+.daily-details-grid {
   display: grid;
 
   padding: 5px 15px;
@@ -42,12 +40,11 @@ body {
   grid-row-gap: 0;
   grid-column-gap: 15px;
   column-gap: 15px;
- 
 }
-.daily-details-grid-item{
+.daily-details-grid-item {
   padding: 20px;
   display: flex;
   height: 30px;
   justify-content: space-between;
   align-items: center;
-} 
+}

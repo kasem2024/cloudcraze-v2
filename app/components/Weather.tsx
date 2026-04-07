@@ -1,101 +1,137 @@
-'use client' // i will add user profile so in the future i will make  a server componet
-import React , {useState , useEffect} from 'react'
-// import { bgData } from '@/utils/bgData'
-import { useSession } from 'next-auth/react'
-import Search from './Search'
- const bgData = [
-    "bg-navbg1",
-    "bg-navbg2",
-    "bg-navbg3",
-    "bg-navbg4",
-    "bg-navbg5",
-    "bg-navbg6",
-    "bg-navbg7",
-    "bg-navbg8",
-    "bg-navbg9",
-]
+"use client";
+import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import Search from "./Search";
+import { GlobeDemo } from "./Globe";
+import CurrentWeather from "./CurrentWeather";
+import Forecast from "./Forecast";
+import { API_Key } from "@/data/api";
+import Link from "next/link";
+import { LogOut } from "lucide-react";
+import User from "./User";
 
-import { GlobeDemo } from './Globe'
-import CurrentWeather from './CurrentWeather'
-import Forecast from './Forecast'
-import { API_Key } from '@/data/api'
-import Link from 'next/link'
-import { LogOut } from 'lucide-react'
-import User from './User'
-const  apiWeatherUrl = "https://api.openweathermap.org/data/2.5"
+const bgData = [
+  "bg-navbg1",
+  "bg-navbg2",
+  "bg-navbg3",
+  "bg-navbg4",
+  "bg-navbg5",
+  "bg-navbg6",
+  "bg-navbg7",
+  "bg-navbg8",
+  "bg-navbg9",
+];
+
+const apiWeatherUrl = "https://api.openweathermap.org/data/2.5";
 
 const Weather = () => {
-    const [currentWeather, setCurrentWeather] = useState(null)
-    const [counter , setCounter] = useState(0)
-    const [forecast, setForecast] = useState(null)
-    const {data} = useSession();
-    const handleOnSearchChange = (searchData :any) => {
-        const [lat, lon] = searchData.value.split(' ')
-        const currentWeatherFetch = fetch(
-          `${apiWeatherUrl}/weather?lat=${lat}&lon=${lon}&appid=${API_Key}&units=metric`
-        )
-        const currentforecastFetch = fetch(
-          `${apiWeatherUrl}/forecast?lat=${lat}&lon=${lon}&appid=${API_Key}&units=metric`
-        )
-        Promise.all([currentWeatherFetch, currentforecastFetch])
-          .then(async (response) => {
-            const weatherResponse = await response[0].json()
-            const forecastResponse = await response[1].json()
-            setCurrentWeather({ ...weatherResponse, city: searchData.label })
-            setForecast({ ...forecastResponse, city: searchData.label })
-          })
-          .catch((err) => console.log(err))
-      }
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [counter, setCounter] = useState(0);
+  const [forecast, setForecast] = useState(null);
+  const { data } = useSession();
 
-    useEffect(()=>{
-    const timeoutId = setTimeout(() => {
-        if(counter < 8){
-            setCounter((counter)=> ++counter)
-        }else{
-            setCounter(0)
-        }
-    
+  const handleOnSearchChange = (searchData: any) => {
+    const [lat, lon] = searchData.value.split(" ");
+
+    Promise.all([
+      fetch(
+        `${apiWeatherUrl}/weather?lat=${lat}&lon=${lon}&appid=${API_Key}&units=metric`,
+      ),
+      fetch(
+        `${apiWeatherUrl}/forecast?lat=${lat}&lon=${lon}&appid=${API_Key}&units=metric`,
+      ),
+    ])
+      .then(async ([weatherRes, forecastRes]) => {
+        const weather = await weatherRes.json();
+        const forecast = await forecastRes.json();
+
+        setCurrentWeather({ ...weather, city: searchData.label });
+        setForecast({ ...forecast, city: searchData.label });
+      })
+      .catch(console.log);
+  };
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setCounter((prev) => (prev < 8 ? prev + 1 : 0));
     }, 11000);
-    return ()=> clearTimeout(timeoutId)
-    }, [counter])
+    return () => clearTimeout(id);
+  }, [counter]);
 
-    console.log(currentWeather)
-    console.log(forecast)
- 
   return (
- <div>
-      {/* FIRST LAYER  */}
-      <div className={` overflow-hidden w-[100vw]  ${bgData[counter]} width-full h-[100vh] bg-cover flex justify-center items-start`}>
-            {/* NAVBAR  */}
-            <nav className=' flex justify-center items-center w-full absolute top-0 left-0 px-5 2xl:pl-7 2xl:pr-10  py-3   text-white z-30'>
-                <div className='text-3xl font-extrabold absolute top-[20px] left-[20px]'><span className='text-4xl text-cyan-600'>C</span>loud </div>
+    <div className="relative w-full min-h-screen overflow-x-hidden font-sans">
+      <div
+        className={`min-h-screen w-full ${bgData[counter]} bg-cover bg-center flex flex-col transition-all duration-1000`}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-0" />
 
-                <div className='z-50 mt-[70px] border-2 border-white w-[95%] p-1 md:w-[60%] md:mt-1 text-black text-xl'>
-                <Search onSearchChange={handleOnSearchChange}/>
-                </div>
+        <nav className="relative z-30 w-full flex items-center justify-between px-4 md:px-10 py-4 backdrop-blur-md bg-white/5 border-b border-white/10">
+          {/* LOGO */}
+          <div className="text-2xl md:text-3xl font-extrabold tracking-wide">
+            <span className="text-cyan-400 drop-shadow-lg">C</span>
+            <span className="text-white">loud</span>
+          </div>
 
-                <div className='flex space-x-3 items-center justify-center  absolute top-[10px] right-[20px]'>
-                 <User data={data}/>
-                  <Link href={'/api/auth/signout'} className='text-zinc-100 text-5xl bg-black rounded-full p-3 border-2'><LogOut/> </Link>
-                </div>
-            </nav>
-            {/* WEATHER  */}
-            <div className=' pt-32 md:pt-24 rounded-md text-2xl bg-black/30 w-[100vw]   2xl:w-[70vw] h-screen shadow-lg text-cyan-600 flex justify-center items-start z-20'>
-                <div className='w-[80%] '> 
-                    {currentWeather && <CurrentWeather currentWeather={currentWeather} />}
-                    {forecast && <Forecast data={forecast} />}
-                </div>
+          {/* SEARCH */}
+          <div className="flex-1 max-w-[600px] mx-3 md:mx-8">
+            <div className="w-full border border-white/20 rounded-xl px-2 py-1 bg-white/10 backdrop-blur-lg shadow-inner">
+              <Search onSearchChange={handleOnSearchChange} />
+            </div>
+          </div>
+
+          {/* USER */}
+          <div className="flex items-center gap-3">
+            <User data={data} />
+            <Link
+              href={"/api/auth/signout"}
+              className="p-2 md:p-3 bg-white/10 hover:bg-white/20 backdrop-blur-lg rounded-full border border-white/20 transition-all duration-300 shadow-lg"
+            >
+              <LogOut size={20} className="text-white" />
+            </Link>
+          </div>
+        </nav>
+
+        <div className="relative z-20 flex-1 flex justify-center items-start px-4 md:px-6 pt-20 md:pt-12">
+          <div
+            className="
+              w-full max-w-5xl
+              bg-white/10
+              backdrop-blur-2xl
+              border border-white/20
+              rounded-2xl
+              p-5 md:p-8
+              shadow-[0_20px_60px_rgba(0,0,0,0.6)]
+              transition-all duration-500
+            "
+          >
+            {/* HEADER */}
+            <div className="mb-6 flex items-center justify-between">
+              <h1 className="text-xl md:text-2xl font-bold text-white tracking-wide">
+                Weather Dashboard
+              </h1>
+              <span className="text-cyan-400 text-sm opacity-80">
+                Live Data
+              </span>
             </div>
 
-            { !forecast && <div className='md:flex absolute bottom-[300px] left-[50%] translate-x-[-50%] w-[700px] h-[20vh] hidden  '> <GlobeDemo/> </div>}
-        
-      </div>
-      {/* SECOND LAYER  */}
-      <div className='bg-black/10 w-full h-full absolute z-10 top-0 left-0 '>
-      </div>
- </div>
-  )
-}
+            {/* CURRENT WEATHER */}
+            {currentWeather && (
+              <div className="mb-6">
+                <CurrentWeather currentWeather={currentWeather} />
+              </div>
+            )}
 
-export default Weather
+            {/* FORECAST */}
+            {forecast && (
+              <div className="border-t border-white/10 pt-6">
+                <Forecast data={forecast} />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
+export default Weather;

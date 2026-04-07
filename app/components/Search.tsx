@@ -1,54 +1,7 @@
-// 'use client'
-
-// import React, { FC, useState } from 'react'
-// import { AsyncPaginate } from 'react-select-async-paginate'
-// import { LoadOptions, GroupBase } from 'react-select';
-// import {geoApiOptions} from "@/data/api";
-// interface SearchProps {
-//   onSearchChange:()=> void;
-// }
-// const Search : FC<SearchProps> = ({ onSearchChange } ) => {
-//   const [search, setSearch] = useState(null)
-
-//   const handleOnChange = (searchData :any ) => {
-//     setSearch(searchData)
-//     onSearchChange(searchData)
-//   }
-  
-//   const loadOptions  = async(inputValue : any ) => {
-//     return fetch(
-//       `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?minPopulation=1000&namePrefix=${inputValue}`,
-//       geoApiOptions
-//     )
-//       .then((response) => response.json())
-//       .then((response) => {
-//         return {
-//           options: response.data.map((item : any) => {
-//             return {
-//               value: `${item.latitude} ${item.longitude}`,
-//               label: `${item.name}, ${item.countryCode} `,
-//             }
-//           }),
-//         }
-//       })
-//       .catch((err) => console.log(err))
-//   }
-//   console.log( 'LoadOption is here',loadOptions)
-//   return (
-//     <AsyncPaginate
-//       placeholder="Search for city"
-//       debounceTimeout={600}
-//       value={search}
-//       onChange={handleOnChange}
-//       loadOptions={loadOptions}
-//     />
-//   )
-// }
-// export default Search
-'use client'
-import React, { FC, useState } from 'react';
-import { AsyncPaginate, LoadOptions } from 'react-select-async-paginate';
-import { GroupBase } from 'react-select';
+"use client";
+import React, { FC, useState } from "react";
+import { AsyncPaginate, LoadOptions } from "react-select-async-paginate";
+import { GroupBase, StylesConfig } from "react-select";
 import { geoApiOptions } from "@/data/api";
 
 interface SearchProps {
@@ -68,41 +21,107 @@ const Search: FC<SearchProps> = ({ onSearchChange }) => {
     onSearchChange(searchData);
   };
 
-  const loadOptions: LoadOptions<OptionType, GroupBase<OptionType>, { page: number }> = async (
-    inputValue,
-
-  
-  ) => {
+  const loadOptions: LoadOptions<
+    OptionType,
+    GroupBase<OptionType>,
+    { page: number }
+  > = async (inputValue) => {
     try {
       const response = await fetch(
         `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?minPopulation=1000&namePrefix=${inputValue}`,
-        geoApiOptions
+        geoApiOptions,
       );
       const data = await response.json();
-      const options = data.data.map((item: any) => ({
-        value: `${item.latitude} ${item.longitude}`,
-        label: `${item.name}, ${item.countryCode}`,
-      }));
+
       return {
-        options,
-       
-     
+        options: data.data.map((item: any) => ({
+          value: `${item.latitude} ${item.longitude}`,
+          label: `${item.name}, ${item.countryCode}`,
+        })),
       };
     } catch (err) {
       console.error(err);
-      return {
-        options: [],
-      };
+      return { options: [] };
     }
+  };
+
+  // 🎨 AAA STYLES
+  const customStyles: StylesConfig<OptionType, false> = {
+    control: (base, state) => ({
+      ...base,
+      background: "rgba(255,255,255,0.1)",
+      border: "1px solid rgba(255,255,255,0.2)",
+      backdropFilter: "blur(12px)",
+      borderRadius: "12px",
+      padding: "2px 6px",
+      boxShadow: state.isFocused ? "0 0 0 1px rgba(34,211,238,0.6)" : "none",
+      "&:hover": {
+        border: "1px solid rgba(255,255,255,0.4)",
+      },
+    }),
+
+    input: (base) => ({
+      ...base,
+      color: "#fff",
+    }),
+
+    placeholder: (base) => ({
+      ...base,
+      color: "rgba(255,255,255,0.6)",
+    }),
+
+    singleValue: (base) => ({
+      ...base,
+      color: "#fff",
+    }),
+
+    menu: (base) => ({
+      ...base,
+      background: "rgba(20,20,20,0.95)",
+      backdropFilter: "blur(20px)",
+      borderRadius: "12px",
+      overflow: "hidden",
+      border: "1px solid rgba(255,255,255,0.1)",
+      zIndex: 9999,
+    }),
+
+    menuList: (base) => ({
+      ...base,
+      maxHeight: "250px",
+      padding: "4px",
+    }),
+
+    option: (base, state) => ({
+      ...base,
+      background: state.isFocused ? "rgba(34,211,238,0.2)" : "transparent",
+      color: "#fff",
+      borderRadius: "8px",
+      padding: "10px",
+      cursor: "pointer",
+    }),
+
+    indicatorSeparator: () => ({
+      display: "none",
+    }),
+
+    dropdownIndicator: (base) => ({
+      ...base,
+      color: "rgba(255,255,255,0.6)",
+      "&:hover": {
+        color: "#22d3ee",
+      },
+    }),
   };
 
   return (
     <AsyncPaginate
-      placeholder="Search for city"
-      debounceTimeout={600}
+      placeholder="Search for a city..."
+      debounceTimeout={500}
       value={search}
       onChange={handleOnChange}
       loadOptions={loadOptions}
+      styles={customStyles}
+      isClearable
     />
   );
 };
