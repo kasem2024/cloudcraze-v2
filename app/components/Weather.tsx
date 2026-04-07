@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Search from "./Search";
-import { GlobeDemo } from "./Globe";
+
 import CurrentWeather from "./CurrentWeather";
 import Forecast from "./Forecast";
 import { API_Key } from "@/data/api";
