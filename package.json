@@ -27,7 +27,7 @@
     "react-dom": "^18",
     "react-select-async-paginate": "^0.7.4",
     "react-typed": "^2.0.12",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^2.6.1",
     "three": "^0.164.1",
     "three-globe": "^2.31.0"
   },
